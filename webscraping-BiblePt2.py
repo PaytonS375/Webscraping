@@ -42,7 +42,7 @@ message = "Chapter: " + random_chapter + " Verse: " + myverse
 
 print(message)
 
-import keys2
+import temp.keys2 as keys2
 from twilio.rest import Client
 
 client = Client(keys2.accountSID,keys2.authToken)
