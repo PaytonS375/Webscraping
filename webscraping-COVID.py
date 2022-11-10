@@ -41,10 +41,10 @@ low_test_ratio = 100.0
 for row in table_rows[2:52]:
     td = row.findAll("td")
     state = td[1].text
-    total_cases = int(td[2].text.repleace(",",""))
-    total_deaths = int(td[4].text.repleace(",",""))
-    total_tests = int(td[10].text.repleace(",",""))
-    population = int(td[12].text.repleace(",",""))
+    total_cases = int(td[2].text.replace(",",""))
+    total_deaths = int(td[4].text.replace(",",""))
+    total_tests = int(td[10].text.replace(",",""))
+    population = int(td[12].text.replace(",",""))
 
     death_rate = round((total_deaths / total_cases) * 100,2)
     test_rate = round((total_tests / population) * 100,2)
