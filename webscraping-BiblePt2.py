@@ -5,7 +5,7 @@ from urllib.request import urlopen, Request
 
 #https://ebible.org/asv/JHN08.htm
 
-#webpage = 'https://ebible.org/asv/JHN'
+#webpage = 'https://biblehub.com/asv/john/5.htm'
 
 random_chapter = random.randint(1,21)
 
