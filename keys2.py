@@ -1,2 +1,0 @@
-accountSID = 'ACe7aabfb053cd95d045d33359b6511774'
-authToken = '9c6939979ff95cf358623fad167ba698'
