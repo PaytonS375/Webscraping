@@ -1,7 +1,9 @@
 from urllib.request import urlopen, Request
 from bs4 import BeautifulSoup
+import keys2 as keys2
+from twilio.rest import Client
 
-url = 'https://www.cryptocurrenc-y.com/top5ranking/'
+url = 'https://www.webull.com/quote/crypto'
 # Request in case 404 Forbidden error
 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.3'}
 
@@ -21,26 +23,42 @@ soup = BeautifulSoup(webpage, 'html.parser')
 
 # Code for Project:
 
+crypto_rows = soup.findAll('div',attrs={"class":"table-cell"})
+counter = 1
+counter_2 = 1
 
+for row in range(5):
+    symbol = crypto_rows[counter].text[0:7]
+    name = crypto_rows[counter].text[7:]
+    price = float(crypto_rows[counter+1].text)
+    p_change = float(crypto_rows[counter+2].text.strip('%'))*0.01
+    corr_price = (price * p_change) + price
+    print(f"Symbol: {symbol}")
+    print(f"Name: {name}")
+    print(f"Current Price: ${price}")
+    print(f"% Change: {p_change}")
+    print(f"Corresponding Price: ${corr_price}")
+    print()
 
+    counter += 10
 
+accountSID = ''
+authToken = ''
 
-message = ''
+client = Client(accountSID,authToken)
 
-print(message)
+TwilioNumber = ''
 
-# Twillio Text Code:
+myCellPhone = ''
 
-import keys2 as keys2
-from twilio.rest import Client
+for row in range(58):
+    check = crypto_rows[counter_2].text
+    price = float(crypto_rows[counter_2+1].text.replace(',',''))
+    if check == 'BBTCUSDBitcoin' and price <= 40000:
+        textmessage = client.messages.create(to=myCellPhone,from_=TwilioNumber,
+                body='Bitcoin is below $40,000')
+    if check == 'EETHUSDEthereum' and price <= 3000:
+        textmessage_2 = client.messages.create(to=myCellPhone,from_=TwilioNumber,
+                body='Ethereum is below $3,000')
 
-client = Client(keys2.accountSID,keys2.authToken)
-
-TwilioNumber = '+17432025260'
-
-myCellPhone = '+18326490489'
-
-textmessage = client.messages.create(to=myCellPhone,from_=TwilioNumber,
-                body=message)
-
-print(textmessage.status)
+    counter_2 += 10
